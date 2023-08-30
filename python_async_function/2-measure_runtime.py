@@ -8,7 +8,7 @@ import asyncio
 import time
 
 
-async def measure_time(n: int, max_delay: int = 10) -> List[float]:
+async def measure_time(n: int, max_delay: int = 10) -> float:
     """Asynchronous coroutine that waits for a random delay."""
     wait_n = __import__('1-concurrent_coroutines').wait_n
     start = time.time()
