@@ -15,16 +15,15 @@ def index_range(page, page_size):
 
 
 class Server:
-    """Server class to paginate a database of popular baby names.
-    """
+    """Server class to paginate a database of popular baby names."""
+
     DATA_FILE = "Popular_Baby_Names.csv"
 
     def __init__(self):
         self.__dataset = None
 
     def dataset(self) -> List[List]:
-        """Cached dataset
-        """
+        """Cached dataset"""
         if self.__dataset is None:
             with open(self.DATA_FILE) as f:
                 reader = csv.reader(f)
@@ -49,8 +48,7 @@ class Server:
                 return []
             for i in range(index[0] + 1, index[1] + 1):
                 f_split = f_read[i].split(",")
-                f_split[len(f_split) - 1] = f_split[len(f_split) - 1].strip(
-                    "\n")
+                f_split[len(f_split) - 1] = f_split[len(f_split) - 1].strip("\n")
                 subcontent.append(f_split)
         return subcontent
 
@@ -61,13 +59,16 @@ class Server:
         hyper = {}
         with open("Popular_Baby_Names.csv", "r") as file:
             f_read = file.readlines()
+            i = None if page * page_size + 1 > len(f_read) / page_size else page + 1
+
             hyper["page_size"] = page_size
             hyper["page"] = page
-            hyper["data"] = self.get_page(page, page_size)
+            hyper["data"] = self.get_page(page, page_size) if i != None else []
             if not hyper["data"]:
                 hyper["page_size"] = 0
-            hyper["next_page"] = None if int(
-                page * page_size) > int(len(f_read) / page_size) else page + 1
+            hyper["next_page"] = (
+                None if page * page_size >= len(f_read) / page_size else page + 1
+            )
             hyper["prev_page"] = None if page < 2 else page - 1
             hyper["total_pages"] = int(len(f_read) / page_size)
 
