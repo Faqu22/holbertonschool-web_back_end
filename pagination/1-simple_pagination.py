@@ -46,7 +46,7 @@ class Server:
                 return []
             for i in range(index[0] + 1, index[1] + 1):
                 f_split = f_read[i].split(",")
-                f_split[len(f_split) - 1] = f_split
-                [len(f_split) - 1].strip("\n")
+                f_split[len(f_split) - 1] = f_split[len(f_split) - 1].strip(
+                    "\n")
                 subcontent.append(f_split)
         return subcontent
