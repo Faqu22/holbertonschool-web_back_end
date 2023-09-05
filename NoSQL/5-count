@@ -1,0 +1,2 @@
+// Task 5
+db.school.count()
