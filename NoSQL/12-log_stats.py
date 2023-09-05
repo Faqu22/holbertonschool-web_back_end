@@ -21,4 +21,3 @@ if __name__ == "__main__":
     print(f"\tmethod DELETE: {get}")
     get = nginx_collection.count_documents({"method": "GET", "path": "/status"})
     print(f"{get} status check")
-    
