@@ -1,4 +1,4 @@
-    #!/usr/bin/env python3
+#!/usr/bin/env python3
 """ 8-main """
 
 def update_topics(mongo_collection, name, topics):
