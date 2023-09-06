@@ -59,27 +59,17 @@ class Server:
         """
         hyper = {}
         with open("Popular_Baby_Names.csv", "r") as file:
-            f = file.readlines()
-            alt = page * page_size + 1 > len(f)
-            i = None if alt / page_size else page + 1
+            f_read = file.readlines()
             hyper["page_size"] = page_size
             hyper["page"] = page
-            if page < 19419:
-                get_page = self.get_page(page, page_size)
-            elif page == 19419:
-                f_split = f[page - 1].split(",")
-                x = f_split[len(f_split) - 1].strip("\n")
-                f_split[len(f_split) - 1] = x
-                get_page = [f_split]
-            else:
-                get_page = []
-            hyper["data"] = get_page
+            hyper["data"] = self.get_page(page, page_size)
             if not hyper["data"]:
                 hyper["page_size"] = 0
-            hyper["next_page"] = (
-                None if page * page_size >= len(f) / page_size else page + 1
-            )
+            if page * page_size >= len(f_read) / page_size:
+                hyper["next_page"] = None
+            else:
+                hyper["next_page"] = page + 1
             hyper["prev_page"] = None if page < 2 else page - 1
-            hyper["total_pages"] = int(len(f) / page_size)
+            hyper["total_pages"] = int(len(f_read) / page_size)
 
         return hyper
