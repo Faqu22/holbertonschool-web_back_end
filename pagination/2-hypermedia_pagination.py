@@ -65,11 +65,11 @@ class Server:
             hyper["data"] = self.get_page(page, page_size)
             if not hyper["data"]:
                 hyper["page_size"] = 0
-            if page * page_size >= len(f_read) / page_size:
+            hyper["total_pages"] = int(len(f_read) / page_size)
+            if page == hyper["total_pages"]:
                 hyper["next_page"] = None
             else:
                 hyper["next_page"] = page + 1
             hyper["prev_page"] = None if page < 2 else page - 1
-            hyper["total_pages"] = int(len(f_read) / page_size)
 
         return hyper
